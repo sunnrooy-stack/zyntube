@@ -41,7 +41,7 @@ import ManagePlaylist from './pages/ManagePlaylist'
 import UseGetRecommendation from './customHooks/UseGetRecommendation'
 import RevenuePage from './component/RevenuePage'
 
-export const serverUrl = "https://playtube-1-v4pt.onrender.com"
+export const serverUrl = "https://playtube-ekxh.onrender.com"
 
 const ProtectedRoute = ({ userData, children }) => {
   if (!userData) {
