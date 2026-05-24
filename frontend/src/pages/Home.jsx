@@ -424,6 +424,7 @@ function Home() {
 
               {!searchData && !filterData && (
                 <>
+                  {userData && <RecommendationContent />}
                   <AllVideosPage />
                   <ShortsPage />
                 </>
