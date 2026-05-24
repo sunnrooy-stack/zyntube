@@ -5,7 +5,16 @@ import bcrypt from 'bcryptjs'
 import uploadOnCloudinary from "../config/cloudinary.js"
 import sendMail from "../config/sendMail.js"
 
-
+// Cookie options based on environment
+const getCookieOptions = () => {
+  const isProduction = process.env.NODE_ENV === 'production';
+  return {
+    httpOnly: true,
+    secure: isProduction,
+    sameSite: isProduction ? "none" : "lax",
+    maxAge: 7 * 24 * 60 * 60 * 1000
+  };
+};
 
 export const signUp = async (req,res) => {
     try {
@@ -33,12 +42,7 @@ export const signUp = async (req,res) => {
         })
         let token = await genToken(user._id)
         
-        res.cookie("token",token , {
-            httpOnly:true,
-            secure:true,
-            sameSite: "none",
-            maxAge: 7 * 24 * 60 * 60 * 1000
-        })
+        res.cookie("token", token, getCookieOptions())
        return res.status(201).json(user)
     } catch (error) {
         return res.status(500).json({message:`SignUp error ${error}`})
@@ -58,12 +62,7 @@ export const signin = async (req,res) => {
             return res.status(400).json({message:"Incorrect Password"})
         }
         let token = await genToken(user._id)
-        res.cookie("token",token , {
-            httpOnly:true,
-            secure:true,
-            sameSite: "none",
-            maxAge: 7 * 24 * 60 * 60 * 1000
-        })
+        res.cookie("token", token, getCookieOptions())
        return res.status(200).json(user)
 
     } catch (error) {
@@ -116,12 +115,7 @@ export const googleAuth = async (req, res) => {
 
     let token = await genToken(user._id);
 
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: false,
-      sameSite: "Strict",
-      maxAge: 7 * 24 * 60 * 60 * 1000
-    });
+    res.cookie("token", token, getCookieOptions());
 
     return res.status(200).json(user);
 

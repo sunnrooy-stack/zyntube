@@ -15,8 +15,20 @@ const app = express()
 app.use(cookieParser())
 app.use(express.json())
 app.use(cors({
-   origin:"https://zyntube-urkw.onrender.com",
-   credentials:true
+   origin: function (origin, callback) {
+      const allowedOrigins = [
+         "http://localhost:3000",
+         "http://localhost:5173",
+         "https://zyntube-urkw.onrender.com",
+         "https://zyntube.onrender.com"
+      ];
+      if (!origin || allowedOrigins.includes(origin)) {
+         callback(null, true);
+      } else {
+         callback(new Error('Not allowed by CORS'));
+      }
+   },
+   credentials: true
 }))
 
 
