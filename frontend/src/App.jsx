@@ -84,7 +84,7 @@ function App() {
           <Route path='/create-post' element={<ProtectedRoute userData={userData}><CreatePost /></ProtectedRoute>} />
           <Route path='/create-short' element={<ProtectedRoute userData={userData}><CreateShorts /></ProtectedRoute>} />
           <Route path='/create-playlist' element={<ProtectedRoute userData={userData}><CreatePlaylist /></ProtectedRoute>} />
-          <Route path='/watch-short/:shortId' element={<ProtectedRoute userData={userData}><WatchShortPage /></ProtectedRoute>} />
+          <Route path='/watch-short/:shortId' element={<WatchShortPage />} />
           <Route path='/channelpage/:channelId' element={<ProtectedRoute userData={userData}><ChannelPageWrapper/></ProtectedRoute>} />
           <Route path='/subscribepage' element={<ProtectedRoute userData={userData}><SubscribePage/></ProtectedRoute>} />
           <Route path='/saveplaylist' element={<ProtectedRoute userData={userData}><SavedPlaylistPage/></ProtectedRoute>} />
@@ -101,7 +101,7 @@ function App() {
         <Route path='/signup' element={<CreateAccount />} />
         <Route path='/forgetpassword' element={<ForgetPassword />}/>
         <Route path='/createchannel' element={<ProtectedRoute userData={userData}><CreateChannelFlow /></ProtectedRoute>} />
-        <Route path='/watch-video/:videoId' element={<ProtectedRoute userData={userData}><WatchVideoPage /></ProtectedRoute>} />
+        <Route path='/watch-video/:videoId' element={<WatchVideoPage />} />
         
        
        
