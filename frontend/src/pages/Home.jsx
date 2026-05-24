@@ -422,9 +422,7 @@ function Home() {
               {searchData && <SearchResults searchResults={searchData} />}
               {filterData && <FilterResults filterResults={filterData} />}
 
-              {userData ? (
-                <RecommendationContent />
-              ) : (
+              {!searchData && !filterData && (
                 <>
                   <AllVideosPage />
                   <ShortsPage />
