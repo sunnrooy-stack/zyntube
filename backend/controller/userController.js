@@ -446,12 +446,31 @@ export const getRecommendedContent = async (req, res) => {
     });
 
     // ✅ Recommended content
-    const recommendedVideos = await Video.find({ $or: videoConditions })
+    const recommendedVideosRaw = await Video.find({ $or: videoConditions })
       .populate("channel comments.author comments.replies.author");
 
-    const recommendedShorts = await Short.find({ $or: shortConditions })
+    const recommendedShortsRaw = await Short.find({ $or: shortConditions })
       .populate("channel", "name avatar")
       .populate("likes", "username photoUrl");
+
+    // 🔧 Deduplicate results (remove duplicates from multiple keyword matches)
+    const seenVideoIds = new Set();
+    const recommendedVideos = recommendedVideosRaw.filter(video => {
+      if (seenVideoIds.has(video._id.toString())) {
+        return false;
+      }
+      seenVideoIds.add(video._id.toString());
+      return true;
+    });
+
+    const seenShortIds = new Set();
+    const recommendedShorts = recommendedShortsRaw.filter(short => {
+      if (seenShortIds.has(short._id.toString())) {
+        return false;
+      }
+      seenShortIds.add(short._id.toString());
+      return true;
+    });
 
     // ✅ Remaining content (exclude recommended)
     const recommendedVideoIds = recommendedVideos.map(v => v._id);
