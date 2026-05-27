@@ -44,7 +44,6 @@ function Home() {
   const [loading, setLoading] = useState(false)
   const [loading1, setLoading1] = useState(false)
   const { userData, subscribeChannel } = useSelector((state) => state.user);
-  const recommendationData = useSelector((state) => state.content.recommendationData);
 
   const categories = [
     "Music", "Gaming", "Movies", "TV Shows", "News",
@@ -426,12 +425,7 @@ function Home() {
               {!searchData && !filterData && (
                 <>
                   {userData && <RecommendationContent />}
-                  {/* exclude recommended video ids from AllVideosPage to avoid duplicates */}
-                  <AllVideosPage
-                    excludeIds={(
-                      recommendationData?.recommendedVideos || []
-                    ).map((v) => v._id)}
-                  />
+                  <AllVideosPage />
                   <ShortsPage />
                 </>
               )}
