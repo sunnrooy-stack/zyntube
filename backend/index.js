@@ -20,7 +20,9 @@ app.use(cors({
          "http://localhost:3000",
          "http://localhost:5173",
          "https://zyntube-urkw.onrender.com",
-         "https://zyntube.onrender.com"
+         "https://zyntube.onrender.com",
+         "https://zyntube.com",
+         "https://www.zyntube.com"
       ];
       if (!origin || allowedOrigins.includes(origin)) {
          callback(null, true);
